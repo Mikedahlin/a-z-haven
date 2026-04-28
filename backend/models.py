@@ -72,7 +72,6 @@ class GameState(BaseModel):
     music_enabled: bool = False
     reduced_motion: bool = False
     has_seen_welcome: bool = False
-    last_daily_greeting_at: Optional[str] = None
     snake_high_score: int = 0
     archie_photo_url: Optional[str] = None
     zeke_photo_url: Optional[str] = None

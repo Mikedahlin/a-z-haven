@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, X, Share2, Loader2, BookmarkPlus, Check } from "lucide-react";
+import { Download, X, Share2, Loader2, BookmarkPlus, Check, Link2 } from "lucide-react";
 import { toast } from "sonner";
 import { createPostcard } from "@/lib/postcard";
 import { useHaven } from "@/lib/store";
+import ShareLinkModal from "@/components/ShareLinkModal";
 
 export default function PostcardModal({ open, onClose, chapter, petName, onSavedMilestone }) {
     const wrap = useRef(null);
     const [busy, setBusy] = useState(false);
     const [saved, setSaved] = useState(false);
+    const [shareEntry, setShareEntry] = useState(null);
     const { state, update } = useHaven();
 
     useEffect(() => {
@@ -59,6 +61,17 @@ export default function PostcardModal({ open, onClose, chapter, petName, onSaved
         });
     };
 
+    const openLinkShare = () => {
+        const c = getCanvas(); if (!c) return;
+        const thumb = c.toDataURL("image/jpeg", 0.7);
+        setShareEntry({
+            chapter_index: chapter.chapter_index,
+            title: chapter.title,
+            body_excerpt: (chapter.body || "").slice(0, 240),
+            thumb,
+        });
+    };
+
     const saveToAlbum = () => {
         const c = getCanvas(); if (!c) return;
         // Compress to JPEG ~quality 0.7 for smaller storage
@@ -106,12 +119,14 @@ export default function PostcardModal({ open, onClose, chapter, petName, onSaved
                             <button onClick={saveToAlbum} disabled={saved || busy} className="btn-ghost inline-flex items-center gap-2 disabled:opacity-50" data-testid="postcard-save-album">
                                 {saved ? <><Check className="w-4 h-4" />In album</> : <><BookmarkPlus className="w-4 h-4" />Save to album</>}
                             </button>
+                            <button onClick={openLinkShare} className="btn-ghost inline-flex items-center gap-2" data-testid="postcard-share-link"><Link2 className="w-4 h-4" />Share link</button>
                             <button onClick={shareNative} className="btn-ghost inline-flex items-center gap-2" data-testid="postcard-share"><Share2 className="w-4 h-4" />Share</button>
                             <button onClick={download} className="btn-primary inline-flex items-center gap-2" data-testid="postcard-download"><Download className="w-4 h-4" />Download</button>
                         </div>
                     </motion.div>
                 </motion.div>
             )}
+            <ShareLinkModal open={!!shareEntry} onClose={() => setShareEntry(null)} postcardEntry={shareEntry} />
         </AnimatePresence>
     );
 }

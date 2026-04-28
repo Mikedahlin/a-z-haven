@@ -14,9 +14,6 @@ OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
 @router.post("/transcribe")
 async def transcribe(audio: UploadFile = File(...), user: dict = Depends(current_user)):
-    if not audio.content_type or "audio" not in audio.content_type and "video/webm" not in (audio.content_type or ""):
-        # browsers often send audio/webm or audio/ogg or audio/mp4
-        pass
     blob = await audio.read()
     if len(blob) == 0:
         raise HTTPException(status_code=400, detail="Empty audio")

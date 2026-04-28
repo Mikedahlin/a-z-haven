@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trash2, Download, X } from "lucide-react";
+import { Trash2, Download, X, Share2 } from "lucide-react";
 import { toast } from "sonner";
 import { useHaven } from "@/lib/store";
+import ShareLinkModal from "@/components/ShareLinkModal";
 
 export default function Postcards() {
     const { state, update } = useHaven();
     const cards = state.postcards || [];
     const [open, setOpen] = useState(null);
+    const [shareEntry, setShareEntry] = useState(null);
     const [confetti, setConfetti] = useState(false);
 
     useEffect(() => {
@@ -35,7 +37,7 @@ export default function Postcards() {
             <header>
                 <p className="text-xs uppercase tracking-[0.22em] text-ink2/70">stamp album</p>
                 <h1 className="font-heading text-4xl sm:text-5xl text-ink leading-tight">Postcards</h1>
-                <p className="text-ink2 mt-1">A wall of every postcard you've tucked away. {cards.length}/30.</p>
+                <p className="text-ink2 mt-1">A wall of every postcard you've tucked away. {Math.min(cards.length, 30)}/30.</p>
             </header>
 
             {cards.length === 0 ? (
@@ -47,24 +49,35 @@ export default function Postcards() {
             ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" data-testid="postcards-grid">
                     {cards.map((c, i) => (
-                        <motion.button
+                        <motion.div
                             key={c.id}
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.04 }}
-                            whileHover={{ y: -4 }}
-                            onClick={() => setOpen(c)}
-                            className="cozy-card overflow-hidden group text-left"
+                            className="cozy-card overflow-hidden group relative"
                             data-testid={`postcard-${c.chapter_index}`}
                         >
-                            <div className="aspect-[16/10] bg-stone/40 overflow-hidden">
-                                <img src={c.thumb} alt={c.title} className="w-full h-full object-cover transition-transform group-hover:scale-[1.03]" />
-                            </div>
-                            <div className="px-3.5 py-3">
-                                <div className="font-heading text-base text-ink truncate">{c.title}</div>
-                                <div className="text-[10.5px] uppercase tracking-widest text-ink2/70 mt-0.5">Ch. {c.chapter_index + 1} · {new Date(c.saved_at).toLocaleDateString()}</div>
-                            </div>
-                        </motion.button>
+                            <button
+                                onClick={() => setOpen(c)}
+                                className="block w-full text-left"
+                            >
+                                <div className="aspect-[16/10] bg-stone/40 overflow-hidden">
+                                    <img src={c.thumb} alt={c.title} className="w-full h-full object-cover transition-transform group-hover:scale-[1.03]" />
+                                </div>
+                                <div className="px-3.5 py-3">
+                                    <div className="font-heading text-base text-ink truncate">{c.title}</div>
+                                    <div className="text-[10.5px] uppercase tracking-widest text-ink2/70 mt-0.5">Ch. {c.chapter_index + 1} · {new Date(c.saved_at).toLocaleDateString()}</div>
+                                </div>
+                            </button>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); setShareEntry(c); }}
+                                className="absolute top-2 right-2 w-8 h-8 rounded-full bg-paper/95 hover:bg-paper flex items-center justify-center shadow-cozy text-ink2 hover:text-terracotta opacity-0 group-hover:opacity-100 transition"
+                                title="Share this postcard"
+                                data-testid={`share-${c.chapter_index}`}
+                            >
+                                <Share2 className="w-3.5 h-3.5" />
+                            </button>
+                        </motion.div>
                     ))}
                 </div>
             )}
@@ -94,6 +107,9 @@ export default function Postcards() {
                                 <button onClick={() => remove(open.id)} className="btn-ghost !text-terracotta !border-terracotta/30 hover:!bg-terracotta/10 inline-flex items-center gap-2" data-testid="detail-remove">
                                     <Trash2 className="w-4 h-4" /> Remove
                                 </button>
+                                <button onClick={() => { setShareEntry(open); setOpen(null); }} className="btn-ghost inline-flex items-center gap-2" data-testid="detail-share">
+                                    <Share2 className="w-4 h-4" /> Share
+                                </button>
                                 <button onClick={() => downloadCard(open)} className="btn-primary inline-flex items-center gap-2" data-testid="detail-download">
                                     <Download className="w-4 h-4" /> Download
                                 </button>
@@ -102,6 +118,12 @@ export default function Postcards() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            <ShareLinkModal
+                open={!!shareEntry}
+                onClose={() => setShareEntry(null)}
+                postcardEntry={shareEntry}
+            />
 
             {confetti && <Confetti />}
         </div>

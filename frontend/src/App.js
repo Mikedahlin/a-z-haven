@@ -15,6 +15,7 @@ import Scrapbook from "@/pages/Scrapbook";
 import Chat from "@/pages/Chat";
 import Settings from "@/pages/Settings";
 import Postcards from "@/pages/Postcards";
+import SharedCard from "@/pages/SharedCard";
 import GameLayout from "@/components/GameLayout";
 
 function RequireAuth({ children }) {
@@ -32,6 +33,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Landing />} />
+                    <Route path="/share/:token" element={<SharedCard />} />
                     <Route element={<RequireAuth><GameLayout /></RequireAuth>}>
                         <Route path="/onboard" element={<Onboard />} />
                         <Route path="/hub" element={<Hub />} />
