@@ -32,16 +32,18 @@ export const SCRAPBOOK = [
 ];
 
 export const PET_PHOTOS = [
-    { id: "p1", url: "https://images.unsplash.com/photo-1554235386-82e08c80c3ef?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Honey-eyed pup" },
-    { id: "p2", url: "https://images.unsplash.com/photo-1744824838258-8c77edaf2814?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Treat catcher" },
-    { id: "p3", url: "https://images.unsplash.com/photo-1744824838304-d2bbf3a94da7?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Posing pup" },
-    { id: "p4", url: "https://images.unsplash.com/photo-1747045168541-c2ed906ef0f5?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Looking up" },
-    { id: "p5", url: "https://images.pexels.com/photos/31734359/pexels-photo-31734359.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", label: "Fluffy white" },
-    { id: "p6", url: "https://images.pexels.com/photos/34008191/pexels-photo-34008191.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", label: "Blanket nap" },
-    { id: "p7", url: "https://images.unsplash.com/photo-1628956187799-dd034dd9a608?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Cozy tabby cat" },
-    { id: "p8", url: "https://images.unsplash.com/photo-1651944515385-b680dae372a4?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Blanket cat" },
-    { id: "p9", url: "https://images.unsplash.com/photo-1768055526025-dc779188e6fd?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Window cat" },
-    { id: "p10", url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?crop=entropy&cs=srgb&fm=jpg&w=900&q=85", label: "Friendly retriever" },
+    { id: "az01", url: "/images/pets/01.webp", label: "Archie & Zeke #1" },
+    { id: "az02", url: "/images/pets/02.webp", label: "Archie & Zeke #2" },
+    { id: "az03", url: "/images/pets/03.webp", label: "Archie & Zeke #3" },
+    { id: "az04", url: "/images/pets/04.webp", label: "Archie & Zeke #4" },
+    { id: "az05", url: "/images/pets/05.webp", label: "Archie & Zeke #5" },
+    { id: "az06", url: "/images/pets/06.webp", label: "Archie & Zeke #6" },
+    { id: "az07", url: "/images/pets/07.webp", label: "Archie & Zeke #7" },
+    { id: "az08", url: "/images/pets/08.webp", label: "Archie & Zeke #8" },
+    { id: "az09", url: "/images/pets/09.webp", label: "Archie & Zeke #9" },
+    { id: "az10", url: "/images/pets/10.webp", label: "Archie & Zeke #10" },
+    { id: "az11", url: "/images/pets/11.webp", label: "Archie & Zeke #11" },
+    { id: "az12", url: "/images/pets/12.webp", label: "Archie & Zeke #12" },
 ];
 
 export const PERSONALITY_TAGS = [

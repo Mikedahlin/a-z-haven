@@ -36,14 +36,14 @@ export default function Hub() {
                         who="Archie"
                         breed="Boston Terrier · 3 yrs"
                         desc="Sharp-eyed, never misses a thing — and 100% running the treat-trick on mom."
-                        img={state.archie_photo_url || "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?crop=entropy&cs=srgb&fm=jpg&w=900&q=85"}
+                        img={state.archie_photo_url || "/images/pets/02.webp"}
                         testid="archie-card"
                     />
                     <DogPortrait
                         who="Zeke"
                         breed="Frenchton · 1.5 yrs"
                         desc="Blue-eyed, a touch bigger than Archie, doesn't realize it. Loves dad Mike the most."
-                        img={state.zeke_photo_url || "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?crop=entropy&cs=srgb&fm=jpg&w=900&q=85"}
+                        img={state.zeke_photo_url || "/images/pets/06.webp"}
                         testid="zeke-card"
                     />
                 </div>

@@ -97,8 +97,8 @@ export default function Landing() {
                         className="cozy-card overflow-hidden col-span-2 aspect-[4/3]"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1554235386-82e08c80c3ef?crop=entropy&cs=srgb&fm=jpg&w=1200&q=85"
-                            alt="A cozy dog"
+                            src="/images/pets/02.webp"
+                            alt="Archie or Zeke"
                             className="w-full h-full object-cover"
                             data-testid="hero-image-1"
                         />
@@ -109,8 +109,8 @@ export default function Landing() {
                         className="cozy-card overflow-hidden aspect-square"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1747045168541-c2ed906ef0f5?crop=entropy&cs=srgb&fm=jpg&w=900&q=85"
-                            alt="Looking up"
+                            src="/images/pets/06.webp"
+                            alt="The boys"
                             className="w-full h-full object-cover"
                             data-testid="hero-image-2"
                         />
@@ -121,8 +121,8 @@ export default function Landing() {
                         className="cozy-card overflow-hidden aspect-square"
                     >
                         <img
-                            src="https://images.pexels.com/photos/31734359/pexels-photo-31734359.jpeg?auto=compress&cs=tinysrgb&w=900"
-                            alt="Fluffy"
+                            src="/images/pets/09.webp"
+                            alt="Cozy moment"
                             className="w-full h-full object-cover"
                             data-testid="hero-image-3"
                         />
