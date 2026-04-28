@@ -1,21 +1,35 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { Loader2, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { Loader2, Sparkles, ChevronLeft, ChevronRight, Send, Music, Volume2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { useHaven } from "@/lib/store";
+import PostcardModal from "@/components/PostcardModal";
+import { startAmbient, stopAmbient, isAmbientPlaying } from "@/lib/audio";
 
 export default function Story() {
-    const { state, grantRewards } = useHaven();
+    const { state, update, grantRewards } = useHaven();
     const [outline, setOutline] = useState([]);
     const [idx, setIdx] = useState(0);
     const [chapter, setChapter] = useState(null);
     const [loading, setLoading] = useState(false);
     const [cache, setCache] = useState({});
+    const [postcardOpen, setPostcardOpen] = useState(false);
+    const [ambient, setAmbient] = useState(isAmbientPlaying());
 
     useEffect(() => {
         api.get("/story/outline").then((r) => setOutline(r.data.outline)).catch(() => {});
     }, []);
+
+    useEffect(() => {
+        // stop ambient on leave
+        return () => stopAmbient();
+    }, []);
+
+    const toggleAmbient = () => {
+        if (ambient) { stopAmbient(); setAmbient(false); update({ ambient_enabled: false }); }
+        else { startAmbient(); setAmbient(true); update({ ambient_enabled: true }); toast("Cozy hum on."); }
+    };
 
     const loadChapter = async (i) => {
         setIdx(i);
@@ -25,7 +39,6 @@ export default function Story() {
             const res = await api.post("/story/chapter", { chapter_index: i, pet_name: state.pet_profile?.pet_name || null });
             setChapter(res.data);
             setCache((c) => ({ ...c, [i]: res.data }));
-            // Reward for reading new chapter
             grantRewards({ coins: 6, stars: 1 });
         } catch (e) {
             toast.error(e?.response?.data?.detail || "Story is brewing — try again in a moment.");
@@ -36,9 +49,15 @@ export default function Story() {
 
     return (
         <div className="space-y-5" data-testid="story-page">
-            <header>
-                <h1 className="font-heading text-4xl sm:text-5xl text-ink leading-tight">Story mode</h1>
-                <p className="text-ink2 mt-1">An AI-painted bedtime tale of Archie & Zeke. New every read.</p>
+            <header className="flex items-start justify-between gap-3 flex-wrap">
+                <div>
+                    <h1 className="font-heading text-4xl sm:text-5xl text-ink leading-tight">Story mode</h1>
+                    <p className="text-ink2 mt-1">An AI-painted bedtime tale of Archie & Zeke. New every read.</p>
+                </div>
+                <button onClick={toggleAmbient} className={`btn-ghost inline-flex items-center gap-2 ${ambient ? "!bg-moss/15 !text-moss !border-moss/30" : ""}`} data-testid="ambient-toggle">
+                    {ambient ? <Volume2 className="w-4 h-4" /> : <Music className="w-4 h-4" />}
+                    {ambient ? "Cozy hum on" : "Play cozy hum"}
+                </button>
             </header>
 
             <div className="flex flex-wrap gap-2" data-testid="chapter-list">
@@ -80,15 +99,27 @@ export default function Story() {
                         <p className="mt-4 text-ink2 leading-relaxed">Pick a chapter above to begin. Each one is freshly painted with words and pictures, just for you.</p>
                     )}
                 </div>
-                <div className="px-6 pb-6 sm:px-8 sm:pb-8 flex items-center gap-3">
+                <div className="px-6 pb-6 sm:px-8 sm:pb-8 flex items-center gap-3 flex-wrap">
                     <button disabled={loading || idx === 0} onClick={() => loadChapter(idx - 1)} className="btn-ghost disabled:opacity-50" data-testid="prev-chapter">
                         <ChevronLeft className="w-4 h-4 inline mr-1" />Previous
                     </button>
                     <button disabled={loading || idx >= outline.length - 1} onClick={() => loadChapter(idx + 1)} className="btn-primary disabled:opacity-50" data-testid="next-chapter">
                         {loading ? <><Loader2 className="w-4 h-4 inline animate-spin mr-1" />Painting…</> : <>Next chapter<ChevronRight className="w-4 h-4 inline ml-1" /></>}
                     </button>
+                    {chapter && (
+                        <button onClick={() => setPostcardOpen(true)} className="btn-accent inline-flex items-center gap-2 ml-auto" data-testid="open-postcard">
+                            <Send className="w-4 h-4" /> Send a postcard
+                        </button>
+                    )}
                 </div>
             </article>
+
+            <PostcardModal
+                open={postcardOpen}
+                onClose={() => setPostcardOpen(false)}
+                chapter={chapter}
+                petName={state.pet_profile?.pet_name || null}
+            />
         </div>
     );
 }

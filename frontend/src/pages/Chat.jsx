@@ -5,6 +5,7 @@ import { Send, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { useHaven } from "@/lib/store";
 import { PERSONAS } from "@/lib/content";
+import { bark, setSoundEnabled } from "@/lib/audio";
 
 export default function Chat() {
     const { state } = useHaven();
@@ -14,6 +15,7 @@ export default function Chat() {
     const [busy, setBusy] = useState(false);
     const scrollRef = useRef();
 
+    useEffect(() => { setSoundEnabled(state.sound_enabled); }, [state.sound_enabled]);
     useEffect(() => { scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" }); }, [messages, busy]);
 
     const send = async () => {
@@ -28,6 +30,10 @@ export default function Chat() {
                 pet_profile: state.pet_profile?.pet_name ? state.pet_profile : null,
             });
             setMessages([...next, { role: "assistant", content: res.data.reply }]);
+            // Soft bark on dog personas
+            if (mode === "archie" || mode === "zeke" || (mode === "pet" && state.pet_profile?.pet_type === "Dog")) {
+                bark();
+            }
         } catch (e) {
             toast.error(e?.response?.data?.detail || "Chat hiccup — try again.");
         } finally {

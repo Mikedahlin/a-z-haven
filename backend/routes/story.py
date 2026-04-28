@@ -19,16 +19,16 @@ OPENAI_CHAT_MODEL = os.environ.get("OPENAI_CHAT_MODEL", "gpt-4o-mini")
 OPENAI_IMAGE_MODEL = os.environ.get("OPENAI_IMAGE_MODEL", "gpt-image-1")
 
 STORY_OUTLINE = [
-    "The First Quiet Morning — Archie and Zeke wake up in the cozy sleeping nook, lamp glow, soft blankets.",
-    "The Great Sock Mystery — Zeke discovers a missing sock; Archie supervises with dignity.",
-    "Treat Kitchen Patience Academy — The sacred sound of the treat jar.",
-    "Backyard Breeze — A sunny afternoon of fetch and dignified supervision.",
-    "Bath Day Negotiations — Zeke splashes; Archie negotiates terms.",
-    "Movie Night on the Living Room Rug — A folded-up nap pile.",
-    "The Window Watch — Bird-time, mail-truck-time, world-time.",
-    "Birthday Quiet — Confetti soft, candles warm, both dogs eyeing the cake-adjacent air.",
-    "Seasonal Twinkle Lights — Cocoa steam and cozy sweaters hung with care.",
-    "The Memory Gallery — Stars overhead, soft echoes of every chapter so far.",
+    "The First Quiet Morning — Archie (3yo black-and-white Boston Terrier, watchful and clever) and Zeke (1.5yo blue-eyed Frenchton, a touch bigger than Archie and goofily unaware of it) wake up in the cozy sleeping nook, lamp glow, soft blankets.",
+    "The Great Sock Mystery — Archie picks up a stray sock because he's learned that opening his mouth = treat from mom Lynne; Zeke decides this is also a game and full-body wags about it.",
+    "Treat Kitchen Patience Academy — Archie performs polite, calculated patience (he is running the angle); Zeke just vibrates near the jar.",
+    "Backyard Breeze — Zeke wants to play and forgets he's the bigger one; Archie supervises with dignity and the occasional dignified zoom.",
+    "Bath Day Negotiations — Zeke splashes joyfully; Archie negotiates terms with his eyes.",
+    "Movie Night on the Living Room Rug — Two dogs, one rug, a folded-up nap pile. Mike (Lynne's son, Zeke's favorite human) is mentioned with a soft tail thump.",
+    "The Window Watch — Bird-time, mail-truck-time, world-time. Archie misses nothing.",
+    "Birthday Quiet — Confetti soft, candles warm, both dogs eyeing the cake-adjacent air, Zeke's blue eyes shining.",
+    "Seasonal Twinkle Lights — Cocoa steam and cozy sweaters hung with care. Archie poses by the lamp; Zeke is wearing his sweater inside-out and could not be prouder.",
+    "The Memory Gallery — Stars overhead, soft echoes of every chapter so far, and one quiet line about how lucky Archie and Zeke are to be home.",
 ]
 
 

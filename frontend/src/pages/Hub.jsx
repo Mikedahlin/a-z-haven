@@ -32,8 +32,20 @@ export default function Hub() {
 
             <section className="grid lg:grid-cols-3 gap-5">
                 <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4" data-testid="dog-portraits">
-                    <DogPortrait who="Archie" desc="Quietly devoted; soft tail thumps." img="https://images.unsplash.com/photo-1554235386-82e08c80c3ef?crop=entropy&cs=srgb&fm=jpg&w=900&q=85" testid="archie-card" />
-                    <DogPortrait who="Zeke" desc="Bouncy bright play-forward heart." img="https://images.unsplash.com/photo-1744824838258-8c77edaf2814?crop=entropy&cs=srgb&fm=jpg&w=900&q=85" testid="zeke-card" />
+                    <DogPortrait
+                        who="Archie"
+                        breed="Boston Terrier · 3 yrs"
+                        desc="Sharp-eyed, never misses a thing — and 100% running the treat-trick on mom."
+                        img={state.archie_photo_url || "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?crop=entropy&cs=srgb&fm=jpg&w=900&q=85"}
+                        testid="archie-card"
+                    />
+                    <DogPortrait
+                        who="Zeke"
+                        breed="Frenchton · 1.5 yrs"
+                        desc="Blue-eyed, a touch bigger than Archie, doesn't realize it. Loves dad Mike the most."
+                        img={state.zeke_photo_url || "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?crop=entropy&cs=srgb&fm=jpg&w=900&q=85"}
+                        testid="zeke-card"
+                    />
                 </div>
                 <div data-testid="my-pet-block">
                     <PetCard profile={state.pet_profile} presentation={state.pet} />
@@ -69,14 +81,17 @@ export default function Hub() {
     );
 }
 
-function DogPortrait({ who, desc, img, testid }) {
+function DogPortrait({ who, breed, desc, img, testid }) {
     return (
         <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="cozy-card overflow-hidden" data-testid={testid}>
             <div className="aspect-[4/3] bg-stone/70">
                 <img src={img} alt={who} className="w-full h-full object-cover" />
             </div>
             <div className="px-5 py-4">
-                <div className="font-heading text-2xl text-ink">{who}</div>
+                <div className="flex items-baseline gap-2">
+                    <div className="font-heading text-2xl text-ink">{who}</div>
+                    {breed && <div className="text-[11px] uppercase tracking-[0.16em] text-ink2/70">{breed}</div>}
+                </div>
                 <p className="text-sm text-ink2 mt-1">{desc}</p>
             </div>
         </motion.div>

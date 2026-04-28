@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import PuzzleBoard from "@/components/PuzzleBoard";
 import { useHaven } from "@/lib/store";
+import { chimeSound, setSoundEnabled } from "@/lib/audio";
 
 export default function Puzzle() {
     const { grantRewards, update, state } = useHaven();
     const [last, setLast] = useState(null);
+
+    useEffect(() => { setSoundEnabled(state.sound_enabled); }, [state.sound_enabled]);
 
     const handleResult = ({ score }) => {
         const stars = score >= 800 ? 3 : score >= 500 ? 2 : score >= 250 ? 1 : 0;
@@ -23,6 +26,7 @@ export default function Puzzle() {
             pet: { ...state.pet, happiness: Math.min(100, state.pet.happiness + 8), mood: "happy" },
         });
         setLast({ score, ...grants, stars });
+        chimeSound();
         toast.success(`A gentle round · +${grants.coins}◎ · +${stars}★`);
     };
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useHaven } from "@/lib/store";
 import { useNavigate } from "react-router-dom";
+import PetPhotoUpload from "@/components/PetPhotoUpload";
 
 export default function Settings() {
     const { state, update, resetSave, signOut } = useHaven();
@@ -16,15 +17,35 @@ export default function Settings() {
     };
 
     return (
-        <div className="space-y-5" data-testid="settings-page">
+        <div className="space-y-7" data-testid="settings-page">
             <header>
                 <h1 className="font-heading text-4xl sm:text-5xl text-ink leading-tight">Settings</h1>
                 <p className="text-ink2 mt-1">Tune the haven to your evening.</p>
             </header>
 
+            <section className="space-y-3 max-w-2xl" data-testid="real-pets-section">
+                <h2 className="font-heading text-2xl text-ink">Real Archie & Zeke photos</h2>
+                <p className="text-sm text-ink2">Upload your own photos — they'll show up across the Hub, Pet picker, and Story postcards. Anytime, swap or remove.</p>
+                <div className="grid sm:grid-cols-2 gap-3 pt-1">
+                    <PetPhotoUpload
+                        label="Archie · Boston Terrier"
+                        value={state.archie_photo_url}
+                        onChange={(v) => update({ archie_photo_url: v })}
+                        testid="archie-upload"
+                    />
+                    <PetPhotoUpload
+                        label="Zeke · Frenchton"
+                        value={state.zeke_photo_url}
+                        onChange={(v) => update({ zeke_photo_url: v })}
+                        testid="zeke-upload"
+                    />
+                </div>
+            </section>
+
             <div className="cozy-card p-6 space-y-4 max-w-2xl">
+                <h2 className="font-heading text-2xl text-ink">Sounds & motion</h2>
                 <Toggle label="UI sounds" desc="Soft click feedback (when supported)." checked={state.sound_enabled} onChange={(v) => update({ sound_enabled: v })} testid="toggle-sound" />
-                <Toggle label="Ambient music" desc="Gentle background loop, off by default." checked={state.music_enabled} onChange={(v) => update({ music_enabled: v })} testid="toggle-music" />
+                <Toggle label="Cozy ambient hum" desc="A gentle pad while you read Story Mode (start it on the Story page)." checked={state.ambient_enabled} onChange={(v) => update({ ambient_enabled: v })} testid="toggle-music" />
                 <Toggle label="Reduced motion" desc="Calmer animations everywhere." checked={state.reduced_motion} onChange={(v) => update({ reduced_motion: v })} testid="toggle-motion" />
 
                 <div className="pt-3 border-t border-ink/10 flex flex-wrap gap-3">

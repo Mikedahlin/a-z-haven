@@ -78,4 +78,7 @@ export const INITIAL_STATE = {
     reduced_motion: false,
     has_seen_welcome: false,
     snake_high_score: 0,
+    archie_photo_url: null,
+    zeke_photo_url: null,
+    ambient_enabled: false,
 };
