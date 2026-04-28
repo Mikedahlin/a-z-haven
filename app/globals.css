@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @apply bg-warm-radial text-cozy-cocoa antialiased;
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(232, 196, 104, 0.35);
+}

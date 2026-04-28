@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// One profile per save; PetProfile owns the FK to GameSave (gameSaveId unique).
+model PetProfile {
+  id           String   @id @default(cuid())
+  gameSaveId   String   @unique
+  gameSave     GameSave @relation(fields: [gameSaveId], references: [id], onDelete: Cascade)
+  petType      String
+  petName      String
+  /// JSON string: tags, energy hint, or legacy blob — also queryable as text
+  personality  String
+  bio          String?
+  imageUrl     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// Single-row persisted game snapshot (JSON matches ClientGameState).
+model GameSave {
+  id         String      @id @default("default")
+  data       String
+  updatedAt  DateTime    @updatedAt
+  petProfile PetProfile?
+}
+
+model ChatAudit {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  role      String
+  preview   String
+}
+
+/// Optional: track Stripe sessions until client verifies (webhook can fulfill later).
+model PendingCheckout {
+  id          String   @id @default(cuid())
+  sessionId   String   @unique
+  itemId      String
+  createdAt   DateTime @default(now())
+  fulfilledAt DateTime?
+}

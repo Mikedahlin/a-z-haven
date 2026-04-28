@@ -1,0 +1,3 @@
+# Nixpacks (Railway default builder) — use Node 20+ for Next 15 / eslint toolchain
+[variables]
+NIXPACKS_NODE_VERSION = "20"

@@ -1,0 +1,8 @@
+[build]
+builder = "NIXPACKS"
+# Migrations run at start (see startCommand) — DB is not reliable during build on Railway.
+buildCommand = "npm install && npm run build:railway"
+
+[deploy]
+startCommand = "npm run start:railway"
+restartPolicyType = "ON_FAILURE"

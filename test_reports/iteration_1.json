@@ -23,7 +23,7 @@
     "backend/routes/story.py: image generation failure is swallowed silently (log.warning) which is correct for UX, but the client has no way to know image failed vs pending — consider returning image_status='skipped'/'ok' flag in StoryChapter response.",
     "backend/models.py PetProfile uses pet_name/pet_type (snake-cased) while frontend forms may use different keys — confirm frontend Onboard page posts with pet_name/pet_type, not name/type.",
     "backend/routes/auth.py google_sign_in sets cookie with secure=True, samesite='none' — required for cross-site but means localhost dev testing over http will drop cookie; Bearer token fallback is implemented so ok.",
-    "Environment: OPENAI_API_KEY is stored in plaintext in /app/backend/.env and is a real user-owned sk-proj-... key. Acceptable per requirements but flagging for awareness — should never be committed to git or logged."
+    "Environment: OPENAI_API_KEY is stored in plaintext in /app/backend/.env and is a real user-owned key. Acceptable per requirements but flagging for awareness — should never be committed to git or logged."
   ],
   "updated_files": [
     "/app/backend/tests/conftest.py (created)",
