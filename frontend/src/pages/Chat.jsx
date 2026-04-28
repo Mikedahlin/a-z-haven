@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { useHaven } from "@/lib/store";
 import { PERSONAS } from "@/lib/content";
 import { bark, setSoundEnabled } from "@/lib/audio";
+import MicButton from "@/components/MicButton";
 
 export default function Chat() {
     const { state } = useHaven();
@@ -93,6 +94,7 @@ export default function Chat() {
                     )}
                 </div>
                 <div className="border-t border-ink/5 p-3 flex items-center gap-2 bg-paper/80">
+                    <MicButton onTranscript={(t) => setInput((cur) => (cur ? cur + " " : "") + t)} disabled={busy} />
                     <input
                         value={input}
                         onChange={(e) => setInput(e.target.value)}

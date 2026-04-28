@@ -1,6 +1,6 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Home, Puzzle, Sparkles, BookOpen, Notebook, MessagesSquare, Settings as SettingsIcon, LogOut, Apple } from "lucide-react";
+import { Home, Puzzle, Sparkles, BookOpen, Notebook, MessagesSquare, Settings as SettingsIcon, LogOut, Apple, Stamp } from "lucide-react";
 import { useHaven } from "@/lib/store";
 
 const NAV = [
@@ -9,6 +9,7 @@ const NAV = [
     { to: "/snake", icon: Apple, label: "Snake", id: "nav-snake" },
     { to: "/rooms", icon: Sparkles, label: "Rooms", id: "nav-rooms" },
     { to: "/story", icon: BookOpen, label: "Story", id: "nav-story" },
+    { to: "/postcards", icon: Stamp, label: "Cards", id: "nav-postcards" },
     { to: "/scrapbook", icon: Notebook, label: "Scrap", id: "nav-scrapbook" },
     { to: "/chat", icon: MessagesSquare, label: "Chat", id: "nav-chat" },
     { to: "/settings", icon: SettingsIcon, label: "Settings", id: "nav-settings" },

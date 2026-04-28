@@ -83,4 +83,7 @@ export const INITIAL_STATE = {
     archie_photo_url: null,
     zeke_photo_url: null,
     ambient_enabled: false,
+    postcards: [],
+    daily_greeting: null,
+    last_daily_greeting_at: null,
 };

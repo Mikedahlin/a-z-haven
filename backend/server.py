@@ -16,6 +16,8 @@ from routes.chat import router as chat_router  # noqa: E402
 from routes.image import router as image_router  # noqa: E402
 from routes.story import router as story_router  # noqa: E402
 from routes.pet import router as pet_router  # noqa: E402
+from routes.voice import router as voice_router  # noqa: E402
+from routes.daily import router as daily_router  # noqa: E402
 
 app = FastAPI(title="A–Z Haven API")
 
@@ -42,6 +44,8 @@ api_router.include_router(chat_router)
 api_router.include_router(image_router)
 api_router.include_router(story_router)
 api_router.include_router(pet_router)
+api_router.include_router(voice_router)
+api_router.include_router(daily_router)
 
 app.include_router(api_router)
 

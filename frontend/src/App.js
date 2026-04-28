@@ -14,6 +14,7 @@ import Story from "@/pages/Story";
 import Scrapbook from "@/pages/Scrapbook";
 import Chat from "@/pages/Chat";
 import Settings from "@/pages/Settings";
+import Postcards from "@/pages/Postcards";
 import GameLayout from "@/components/GameLayout";
 
 function RequireAuth({ children }) {
@@ -40,6 +41,7 @@ export default function App() {
                         <Route path="/decor" element={<Decor />} />
                         <Route path="/story" element={<Story />} />
                         <Route path="/scrapbook" element={<Scrapbook />} />
+                        <Route path="/postcards" element={<Postcards />} />
                         <Route path="/chat" element={<Chat />} />
                         <Route path="/settings" element={<Settings />} />
                     </Route>

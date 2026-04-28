@@ -77,6 +77,9 @@ class GameState(BaseModel):
     archie_photo_url: Optional[str] = None
     zeke_photo_url: Optional[str] = None
     ambient_enabled: bool = False
+    postcards: List[Dict[str, Any]] = []  # rolling list of saved postcard entries
+    daily_greeting: Optional[str] = None
+    last_daily_greeting_at: Optional[str] = None
 
 
 class GameStateRequest(BaseModel):
