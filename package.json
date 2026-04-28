@@ -1,0 +1,12 @@
+{
+  "name": "a-z-haven",
+  "version": "1.0.0",
+  "description": "Moms Game - A-Z Haven",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
