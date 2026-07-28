@@ -45,3 +45,8 @@ prisma/dev.db
 prisma/dev.db-journal
 
 .env
+
+# local tooling
+.claude
+CLAUDE.md
+AGENTS.md
