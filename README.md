@@ -1,10 +1,19 @@
-# A–Z Haven — Premium cozy virtual pet (MVP)
+# A–Z Haven
 
-Web-first cozy game: **create any pet** (species + personality energy + traits), optional **photo URL** (UploadThing-ready later), puzzles, rooms, decor, scrapbook, **server-only OpenAI** chat + insights, Zustand + Prisma `PetProfile`, procedural UI sound, optional ambient audio.
+An interactive virtual pet application built for the browser. Users can create a pet, explore rooms, complete puzzles, collect decor, maintain a scrapbook, and interact with optional AI-assisted features.
 
-## Quick start (local Postgres)
+## Technical overview
 
-Database is **PostgreSQL** (same as Railway). Easiest local option:
+- Next.js 15 App Router
+- TypeScript and Tailwind CSS
+- Framer Motion and Zustand
+- Prisma with PostgreSQL
+- Docker for local database development
+- Server-only OpenAI integration for chat and insights
+
+## Run locally
+
+Start the local PostgreSQL service, install dependencies, configure the environment, and apply the database schema:
 
 ```bash
 docker compose up -d
@@ -15,31 +24,22 @@ npm run db:seed
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Create a pet at **`/pet`**, then use **`/hub`**, **`/puzzle`**, **`/rooms`**, **`/decor`**, **`/scrapbook`**, **`/settings`**, and **Chat**.
+Open [http://localhost:3000](http://localhost:3000). The primary application routes include `/pet`, `/hub`, `/puzzle`, `/rooms`, `/decor`, `/scrapbook`, and `/settings`.
 
-## Deploy (GitHub + Railway)
+## Deployment
 
-Step-by-step: **`DEPLOY_RAILWAY.md`**. Summary: connect the GitHub repo in Railway, add the **PostgreSQL** plugin, reference **`DATABASE_URL`** into the web service, set **`OPENAI_API_KEY`**, and push to deploy (`railway.toml` runs `npm run build:railway`).
+See [DEPLOY_RAILWAY.md](./DEPLOY_RAILWAY.md) for the Railway deployment process, database configuration, and environment variables. API keys are intended to remain server-side.
 
-## Docs
+## Useful commands
 
-- Full product + architecture: `PRODUCT_STRATEGY.md` (may still mention older naming in places)
-- Env vars: `.env.example`
-- Art/audio swap notes: `public/images/README.md`, `public/audio/README.md`
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Run the production server |
+| `npm run lint` | Run ESLint |
+| `npm run db:migrate` | Apply production database migrations |
+| `npm run db:seed` | Seed sample application data |
+| `npm run db:studio` | Open Prisma Studio |
 
-## Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `npm run dev` | Development server |
-| `npm run build` | Production build |
-| `npm run start` | Run production server |
-| `npm run lint` | ESLint |
-| `npm run db:push` | `prisma db push` (emergency schema sync; prefer migrations) |
-| `npm run db:migrate` | `prisma migrate deploy` (use for Railway / prod DB) |
-| `npm run db:seed` | Seed sample `PetProfile` + `GameSave` |
-| `npm run db:studio` | Prisma Studio |
-
-## Stack
-
-Next.js 15 (App Router), TypeScript, Tailwind CSS, Framer Motion, Zustand, Prisma, PostgreSQL (Docker locally / Railway in prod), OpenAI (server-only for chat + insights).
+Supporting product and architecture notes are available in `PRODUCT_STRATEGY.md`.
